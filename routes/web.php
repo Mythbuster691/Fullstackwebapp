@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CareerController;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Request;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\RazorpayPaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +19,9 @@ use Illuminate\Support\Facades\Mail;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+
+
 
 Route::get('/', function () {
     return view('layouts.app');
@@ -47,6 +53,10 @@ Route::get('/about',function(){
 });
 
 Route::resource('career',CareerController::class);
+Route::get('interviewdestination',[CareerController::class,'getinterviewdestination']);
+
+
+
 
 Auth::routes();
 
@@ -63,9 +73,11 @@ Route::get('send-mail', function () {
         'body' => 'This is testing email to send the application status of a user'
     ];
 
-    \Mail::to('tarunicool123@gmail.com')->send(new \App\Mail\MyTestMail($details));
+    Mail::to('tarunicool123@gmail.com')->send(new \App\Mail\MyTestMail($details));
 
     dd("Email is Sent.");
 
 });
 
+Route::get('razorpay-payment/{id}', [RazorpayPaymentController::class, 'index'])->name('razorpay.index');
+Route::post('razorpay-payment', [RazorpayPaymentController::class, 'store'])->name('razorpay.payment.store');

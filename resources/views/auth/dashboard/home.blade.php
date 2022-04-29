@@ -17,9 +17,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php
-                    $careers = DB::table('careers')->select('id','name','email','contact_no','status','booking_id')->get();
-                    ?>
+
+
+
                     @foreach ($careers as $career)
 
 
@@ -46,8 +46,9 @@
                         <td>
                             <form action="{{ route('home.status', $career->id) }}" method="POST" >
                                 @csrf
-                               <select class="btn btn-light" name="status" id="statusval">
-                                   <option value="0" class="btn" type="submit">Pending</option>
+                               <select class="btn btn-light" name="status" id="statusval" onchange="this.form.submit()">
+                                <option value="" class="btn" type="submit">change status</option>
+                                <option value="0" class="btn" type="submit">Pending</option>
                                    <option value="1" type="submit">Accept</option>
                                    <option value="2" type="submit">Reject</option>
                                </select>
@@ -57,9 +58,19 @@
                     @endforeach
                 </tbody>
             </table>
+            <div class="d-flex justify-content-center">
+                <span>
+                    {{$careers->links()}}
+                </span>
+            </div>
         </div>
     </div>
 </div>
 @endsection
 
 
+<style>
+    .w-5{
+        display: none;
+    }
+</style>

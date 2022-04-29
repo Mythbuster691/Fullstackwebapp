@@ -37,6 +37,44 @@
 
     }
 </style>
+
+
+<script>
+     $('#district').change(function() {
+
+var districtID = $(this).val();
+
+if (districtID) {
+
+    $.ajax({
+        type: "GET",
+        url: "{{ url('interviewdestination') }}?centerid=" + districtID,
+        success: function(res) {
+
+            if (res) {
+
+                $("#interviewdestination").empty();
+                $("#interviewdestination").append('<option>Select interview destination</option>');
+                $.each(res, function(key, value) {
+                    $("#interviewdestination").append('<option value="' + key + '">' + value +
+                        '</option>');
+                });
+
+            } else {
+
+                $("#interviewdestination").empty();
+            }
+        }
+    });
+} else {
+
+    $("#interviewdestination").empty();
+
+}
+});
+
+
+</script>
 </html>
 
 

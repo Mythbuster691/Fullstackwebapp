@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Career;
+use Illuminate\Support\Facades\DB;
 class HomeController extends Controller
 {
     /**
@@ -24,12 +25,13 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        return view('auth.dashboard.home');
+        $careers = Career::paginate(8);
+        return view('auth.dashboard.home',compact('careers'));
     }
 
     public function status(Request $request,$id){
         $career = Career::findOrFail($id);
-        $career->status = !$career->status;
+        $career->status = $request->status;
         $career->save();
         return redirect()->back();
     }
