@@ -44,6 +44,7 @@
     {{View::make('layouts.carousel')}}
     {{View::make('layouts.whywork')}}
     {{View::make('layouts.ceodesk')}}
+    {{View::make('layouts.footerimage')}}
     {{View::make('layouts.footer')}}
 
 
