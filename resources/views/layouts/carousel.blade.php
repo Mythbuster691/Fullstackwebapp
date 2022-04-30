@@ -10,7 +10,7 @@
         </div>
         <div class="row my-2">
             <p class="fs-4 text-center" style="color: white;">
-                DA MAHIR TRAVELS is India's leading travel distribution platform. Our technology enables travel
+                The MAHIR TRAVELS is India's leading travel distribution platform. Our technology enables travel
                 buyers and suppliers to come together and seamlessly create joyful experiences for travellers all over
                 the world.
             </p>

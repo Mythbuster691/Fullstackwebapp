@@ -25,17 +25,17 @@ class CareerController extends Controller
      */
     public function create()
     {
-        $districts = DB::table('centers')->pluck('name','id');
+        $districts = DB::table('city')->pluck('name','id');
         return view('career.create',compact('districts'));
     }
 
     public function getinterviewdestination(Request $request)
     {
         $centerid = DB::table('city_center')
-                    ->where('centerid',$request->centerid)
-                    ->pluck('cityid');
+                    ->where('cityid',$request->centerid)
+                    ->pluck('centerid');
 
-        $cities = DB::table('city')->whereIn('id',$centerid)->get()->pluck('name','id');
+        $cities = DB::table('centers')->whereIn('id',$centerid)->get()->pluck('name','id');
         return response()->json($cities);
     }
 
@@ -52,7 +52,7 @@ class CareerController extends Controller
             "name" => 'required',
             "fname" =>'required',
             "dob" => 'required|date',
-            "contact" => 'required|numeric|unique:careers,contact_no|digits:10',
+            "contact" => 'required|numeric',
             "email" => 'required|unique:careers,email',
             "district" => 'required',
             "center" => 'required',
@@ -67,25 +67,21 @@ class CareerController extends Controller
         $career->date_of_birth = $request->dob;
         $career->contact_no = $request->contact;
         $career->email = $request->email;
-        $career->district = DB::table('centers')->where('id', $request->district)->first()->name;
-        $career->interview_destination = DB::table('city')->where('id', $request->center )->first()->name;
+        $career->district = DB::table('city')->where('id', $request->district)->first()->name;
+        $career->interview_destination = DB::table('centers')->where('id', $request->center )->first()->name;
         $career->apply_for = $request->applyfor;
         if($request->hasFile('resume')){
             $career->resume = $request->file('resume')->store('pdf');
         }
         $career->booking_id = substr(md5(mt_rand()), 0, 6);
 
-        $slots = DB::table('slots')->where('centerid', $request->district)->get();
+        $slots = DB::table('slots')->where('centerid', $request->center)->get();
         $slotdate = "";
         $slottiming = "";
-        $slotid = 0;
-        $old_seats = 0;
         foreach($slots as $key => $slot){
             if($slot->max_seats > $slot->seats){
                 $slotdate = $slot->slot_date;
                 $slottiming = $slot->timing;
-                $slotid = $slot->id;
-                $old_seats = ++$slot->seats;
                 break;
             }
         }
@@ -93,14 +89,14 @@ class CareerController extends Controller
         $career->slotdate = $slotdate;
         $career->slottiming = $slottiming;
 
-        $slot = DB::table('slots')->where('id', $slotid)->update(['seats' =>$old_seats]);
+
 
 
         $career->save();
 
 
 
-        return redirect()->route('razorpay.index',encrypt($career->id))->with('success','Your application  has been Submit  Successfully');
+        return redirect()->route('razorpay.index',encrypt($career->id));
     }
 
     /**
@@ -145,6 +141,10 @@ class CareerController extends Controller
     public function destroy(Career $career)
     {
         //
+    }
+
+    public function success(){
+        return view('career.successpage');
     }
 
 }

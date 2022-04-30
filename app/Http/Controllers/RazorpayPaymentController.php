@@ -58,15 +58,31 @@ class RazorpayPaymentController extends Controller
         // if ($generated_signature == razorpay_signature) {
         //     return "payment is successful";
         // }
-        $input = $request->all();
-        $career = DB::table('careers')->where('orderidrazor',$input['razorpay_order_id'])
+                $input = $request->all();
+                $career = DB::table('careers')->where('orderidrazor',$input['razorpay_order_id'])
                 ->update(['paymentidrazor'=> $input['razorpay_payment_id'],'paymentstatus'=>true] );
+                $careercenterid = DB::table('careers')->where('orderidrazor',$input['razorpay_order_id'])->pluck('interview_destination');
 
+                $center = DB::table('centers')->whereIn('name',$careercenterid)->get()->first();
 
                 $career = DB::table('careers')->where('orderidrazor',$input['razorpay_order_id'])->first();
+
                 if($career->paymentstatus = true){
                    DB::table('careers')->where('orderidrazor',$input['razorpay_order_id'])
                     ->update(['status'=>1] );
+
+
+                    $slots = DB::table('slots')->where('centerid', $center->id)->get();
+                    $slotid = 0;
+                    $old_seats = 0;
+                    foreach($slots as $key => $slot){
+                        if($slot->max_seats > $slot->seats){
+                            $slotid = $slot->id;
+                            $old_seats = ++$slot->seats;
+                            break;
+                        }
+                    }
+                    $slot = DB::table('slots')->where('id', $slotid)->update(['seats' =>$old_seats]);
                 }
 
 
@@ -76,12 +92,13 @@ class RazorpayPaymentController extends Controller
                     'body2' => 'Your seats has been confirmed succesfully for the post of '.$career->apply_for.'',
                     'body3' => 'Your Application id is :  '.$career->booking_id.'',
                     'body4' => 'Your slot date and time for the interview is'.$career->slotdate.' & '.$career->slottiming.'',
-                    'body5' => 'Your razorpay orderid is:'.$career->orderidrazor.'',
-                    'body6' => 'Your razorpay payment id id :  '.$career->paymentidrazor.'',
+                    'body5' => 'Your interview location is :'.$center->location.' ,'.$center->name.'',
+                    'body6' => 'Your razorpay orderid is:'.$career->orderidrazor.'',
+                    'body7' => 'Your razorpay payment id id :  '.$career->paymentidrazor.'',
                 ];
-        Mail::to($career->email)->send(new \App\Mail\MyTestMail($details));
+            Mail::to($career->email)->send(new \App\Mail\MyTestMail($details));
 
-            return view('career.successpage')->with('success','Your Application Payment is accepted and a mail is sent to you regarding your information');
+            return redirect()->route('payment.success')->with('success','Your Application Payment is accepted and a mail is sent to you regarding your information');
 
         }
 

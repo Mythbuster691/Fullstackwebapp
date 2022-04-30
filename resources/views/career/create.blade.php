@@ -8,10 +8,13 @@
         </div>
         @endif
     </div>
+    <?php
+
+    ?>
     <form action=" {{route('career.store')}} " method="POST" enctype="multipart/form-data">
         @csrf
         <div class="row">
-            <h2 class="text-center text-warning fw-bolder">Fill in your details</h2>
+            <h2 class="text-center py-3 text-success fw-bold">Signup Your Application with The Mahir Travels</h2>
         </div>
         <div class="mb-3">
             <label for="exampleInputName" class="form-label">Name</label>
@@ -62,7 +65,7 @@
             <div class="row">
                 <div class="col-md-4 mb-2">
                     <label for="exampleInputFName" class="form-label">District</label>
-                    <select name="district" id="district" id=""
+                    <select name="district" id="district"
                         class="form-control @error('district')is-invalid @enderror">
                         <option value="" selected>Select city</option>
                         @foreach ($districts as $key => $district)
@@ -77,7 +80,6 @@
                     <label for="exampleInputdestination" class="form-label">Interview Destination</label>
                     <select name="center" id="interviewdestination"
                         class="form-control @error('center')is-invalid @enderror ">
-                        <option value="">Select your district first</option>
                     </select>
                     @error('center')
                     <span class="text-danger">{{ $message }}</span>

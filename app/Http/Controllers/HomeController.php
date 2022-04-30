@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\CareersExport;
 use Illuminate\Http\Request;
-use App\Models\User;
 use App\Models\Career;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\Console\Input\Input;
+use Maatwebsite\Excel\Facades\Excel;
+use Maatwebsite\Excel\Concerns\WithHeadings;
+
 class HomeController extends Controller
 {
     /**
@@ -25,6 +29,7 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
+
         $careers = Career::paginate(8);
         return view('auth.dashboard.home',compact('careers'));
     }
@@ -34,5 +39,8 @@ class HomeController extends Controller
         $career->status = $request->status;
         $career->save();
         return redirect()->back();
+    }
+    public function fileExport(){
+        return Excel::download(new CareersExport, 'users-collection.xlsx');
     }
 }

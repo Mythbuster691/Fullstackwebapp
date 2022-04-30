@@ -11,6 +11,7 @@
     <p>{{ $details['body4'] }}</p>
     <p>{{ $details['body5'] }}</p>
     <p>{{ $details['body6'] }}</p>
+    <p>{{ $details['body7']}}</p>
 
 
 
