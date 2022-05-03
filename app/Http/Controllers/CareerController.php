@@ -56,7 +56,7 @@ class CareerController extends Controller
             "email" => 'required|unique:careers,email',
             "district" => 'required',
             "center" => 'required',
-            "resume" => 'required|mimes:pdf',
+            "resume" => 'required',
             "center"=> 'required',
         ]);
 
