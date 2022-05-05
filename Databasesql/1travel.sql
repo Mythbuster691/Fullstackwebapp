@@ -1,10 +1,10 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.3
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 30, 2022 at 04:21 PM
--- Server version: 10.4.14-MariaDB
+-- Generation Time: May 05, 2022 at 08:50 AM
+-- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.2.34
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -20,6 +20,41 @@ SET time_zone = "+00:00";
 --
 -- Database: `travel`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `applyingfor`
+--
+
+CREATE TABLE `applyingfor` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `applyingfor`
+--
+
+INSERT INTO `applyingfor` (`id`, `name`) VALUES
+(1, 'General Manager'),
+(2, 'Manager'),
+(3, 'Accountant'),
+(4, 'Team leader'),
+(5, 'It operation'),
+(6, 'Marketing manager'),
+(7, 'Air ticket executive'),
+(8, 'Hotel reservation executive'),
+(9, 'Travel insurance coordinator'),
+(10, 'Educational consultant'),
+(11, 'Area Manager'),
+(12, 'Socail media executive'),
+(13, 'Internet marketing executive'),
+(14, 'Physical marketing executive'),
+(15, 'Telecaller sales'),
+(16, 'Housekeeping'),
+(17, 'Security guard'),
+(18, 'Housekeeping guard');
 
 -- --------------------------------------------------------
 
@@ -401,6 +436,12 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `re
 --
 
 --
+-- Indexes for table `applyingfor`
+--
+ALTER TABLE `applyingfor`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `careers`
 --
 ALTER TABLE `careers`
@@ -468,6 +509,12 @@ ALTER TABLE `users`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `applyingfor`
+--
+ALTER TABLE `applyingfor`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `careers`
