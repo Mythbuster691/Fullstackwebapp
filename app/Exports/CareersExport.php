@@ -13,7 +13,8 @@ class CareersExport implements FromCollection, WithHeadings
     */
     public function collection()
     {
-        return Career::all();
+        return Career::all()->orderBy('interview_destination', 'ASC');;
+
     }
     public function headings(): array{
         return [

@@ -50,7 +50,7 @@
                                 <a  class="btn btn-danger">Pending</a>
                             @break
                             @case(1)
-                                <a class="btn btn-success">Accepted</a>
+                                <a class="btn btn-success">Successful</a>
                             @break
                             @default
 
