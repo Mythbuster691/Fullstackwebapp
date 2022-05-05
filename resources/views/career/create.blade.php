@@ -2,7 +2,7 @@
 @section('content')
 <div class="container w-75 mt-4 bg-light py-3">
     <div class="row">
-        @if ($message = Session::get('success'))
+        @if ($message = Session::get('fail'))
         <div class="alert alert-success">
             <p>{{ $message }}</p>
         </div>
@@ -88,8 +88,13 @@
                 </div>
                 <div class="col-md-4 mb-3">
                     <label for="exampleInputapply" class="form-label">Apply For</label>
-                    <input type="text" name="applyfor" class="form-control" id="exampleInputapply"
+                    <select name="applyfor" class="form-control" id="exampleInputapply"
                         placeholder="applying  for" value="{{ old('applyfor') }}">
+                        <option value="" selected>Select your post</option>
+                        @foreach ($apply as $key => $a)
+                        <option value="{{$key}}">{{ $a }}</option> @endforeach
+                    </select>
+
                 </div>
             </div>
         </div>

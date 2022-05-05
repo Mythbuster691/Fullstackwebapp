@@ -83,25 +83,29 @@ class RazorpayPaymentController extends Controller
                         }
                     }
                     $slot = DB::table('slots')->where('id', $slotid)->update(['seats' =>$old_seats]);
+                    $details = [
+                        'title' => 'Mail from taruntest@gmail.com',
+                        'body1' =>'Dear '.$career->name.',',
+                        'body2' => 'Your seats has been confirmed succesfully for the post of '.$career->apply_for.'',
+                        'body3' => 'Your Application id is :  '.$career->booking_id.'',
+                        'body4' => 'Your slot date and time for the interview is : '.$career->slotdate.' & '.$career->slottiming.'',
+                        'body5' => 'Your interview location is :  '.$center->location.' ,'.$center->name.'',
+                        'body6' => 'Your razorpay orderid is :  '.$career->orderidrazor.'',
+                        'body7' => 'Your razorpay payment id id :  '.$career->paymentidrazor.'',
+                    ];
+                Mail::to($career->email)->send(new \App\Mail\MyTestMail($details));
+
+                return redirect()->route('payment.success')->with('success','Your Application Payment is accepted and a mail is sent to you regarding your information');
+                }
+                else{
+                    return redirect()->route('career.create')->with('fail','Your payment was not processed due to some problem try filling out the form again');
                 }
 
 
-                $details = [
-                    'title' => 'Mail from taruntest@gmail.com',
-                    'body1' =>'Dear '.$career->name.',',
-                    'body2' => 'Your seats has been confirmed succesfully for the post of '.$career->apply_for.'',
-                    'body3' => 'Your Application id is :  '.$career->booking_id.'',
-                    'body4' => 'Your slot date and time for the interview is'.$career->slotdate.' & '.$career->slottiming.'',
-                    'body5' => 'Your interview location is :'.$center->location.' ,'.$center->name.'',
-                    'body6' => 'Your razorpay orderid is:'.$career->orderidrazor.'',
-                    'body7' => 'Your razorpay payment id id :  '.$career->paymentidrazor.'',
-                ];
-            Mail::to($career->email)->send(new \App\Mail\MyTestMail($details));
 
-            return redirect()->route('payment.success')->with('success','Your Application Payment is accepted and a mail is sent to you regarding your information');
+
 
         }
-
 
 
 

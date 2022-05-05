@@ -14,7 +14,7 @@
     <link
     href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Playfair+Display:wght@500&display=swap"
     rel="stylesheet">
-    <title>Travel</title>
+    <title>da mahir Travel</title>
   </head>
   <style>
     body {
@@ -26,6 +26,7 @@
 
 
     {{View::make('layouts.header')}}
+    @yield('content')
     {{View::make('layouts.footer')}}
 
 

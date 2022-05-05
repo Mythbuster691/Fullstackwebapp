@@ -26,7 +26,8 @@ class CareerController extends Controller
     public function create()
     {
         $districts = DB::table('city')->pluck('name','id');
-        return view('career.create',compact('districts'));
+        $apply = DB::table('applyingfor')->pluck('name','id');
+        return view('career.create',compact('districts','apply'));
     }
 
     public function getinterviewdestination(Request $request)
@@ -69,7 +70,7 @@ class CareerController extends Controller
         $career->email = $request->email;
         $career->district = DB::table('city')->where('id', $request->district)->first()->name;
         $career->interview_destination = DB::table('centers')->where('id', $request->center )->first()->name;
-        $career->apply_for = $request->applyfor;
+        $career->apply_for = DB::table('applyingfor')->where('id',$request->applyfor)->first()->name;
         if($request->hasFile('resume')){
             $career->resume = $request->file('resume')->store('pdf');
         }

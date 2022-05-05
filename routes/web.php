@@ -73,16 +73,6 @@ Route::middleware('auth')->group(function(){
 });
 
 Route::get('send-mail', function () {
-
-    $details = [
-        'title' => 'Mail from taruntest@gmail.com',
-        'body' => 'This is testing email to send the application status of a user'
-    ];
-
-    Mail::to('tarunicool123@gmail.com')->send(new \App\Mail\MyTestMail($details));
-
-    dd("Email is Sent.");
-
 });
 
 Route::get('razorpay-payment/{id}', [RazorpayPaymentController::class, 'index'])->name('razorpay.index');
