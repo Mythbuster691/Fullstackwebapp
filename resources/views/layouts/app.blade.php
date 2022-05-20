@@ -43,7 +43,7 @@
 </head>
 <body>
 
-    {{View::make('layouts.header')}}
+{{View::make('layouts.header')}}
     {{View::make('layouts.carousel')}}
     {{View::make('layouts.whywork')}}
     {{View::make('layouts.ceodesk')}}
