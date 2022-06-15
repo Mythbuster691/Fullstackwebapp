@@ -1,5 +1,6 @@
 <div class="container-fluid"
-    style="background-image: url('https://images.unsplash.com/photo-1627358431967-67a99aae4ba1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2671&q=80'); background-size:100% 100%; border-top: 5px solid #A97E50;">
+    style="background-image:
+    url('https://www.state.gov/wp-content/uploads/2020/11/shutterstock_186964970-scaled.jpg'); background-size:100% 100%; border-top: 5px solid #A97E50;">
     <div class="email_serv tboright">
         <b>Email: </b><a href="mailto:customerservice@tbo.com​">jobs@damahir.Travels</a>
     </div>
